@@ -1,35 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navegador from './assets/Navegador/navegador';
+import Perfil from './assets/Perfil/perfil';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Router>
+      <div className="App">
+        <Navegador cartCount={3} />
 
-export default App
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/carta" element={<Carta />} />
+          <Route path="/pedidos" element={<Pedidos />} />
+          <Route path="/info" element={<Info />} />
+          <Route path="/carrito" element={<Carrito />} />
+          <Route path="/perfil" element={<Perfil />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+const Home = () => (
+  <div className="container" style={{ paddingTop: '100px' }}>
+    <h1>Bienvenido a La Esquina BAR</h1>
+    <p>Explora nuestra carta y realiza tus pedidos.</p>
+  </div>
+);
+
+const Carta = () => (
+  <div className="container" style={{ paddingTop: '100px' }}>
+    <h1>Nuestra Carta</h1>
+    <p>Aquí irán los productos</p>
+  </div>
+);
+
+const Pedidos = () => (
+  <div className="container" style={{ paddingTop: '100px' }}>
+    <h1>Mis Pedidos</h1>
+    <p>Historial de pedidos</p>
+  </div>
+);
+
+const Info = () => (
+  <div className="container" style={{ paddingTop: '100px' }}>
+    <h1>Información</h1>
+    <p>Sobre nosotros</p>
+  </div>
+);
+
+const Carrito = () => (
+  <div className="container" style={{ paddingTop: '100px' }}>
+    <h1>Carrito de Compras</h1>
+    <p>Productos en el carrito</p>
+  </div>
+);
+
+export default App;
