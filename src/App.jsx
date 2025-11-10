@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Navegador from './assets/Navegador/navegador';
 import Perfil from './assets/Perfil/perfil';
 import Menu from './assets/Carta/menu';
@@ -8,6 +8,7 @@ import Footer from './assets/Footer/footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
+import Inicio from './assets/inicio/Inicio';
 
 function App() {
   return (
@@ -16,10 +17,10 @@ function App() {
         <Navegador cartCount={3} />
 
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Inicio />} />
           <Route path="/carta" element={<Menu />} />
           <Route path="/pedidos" element={<Pedidos />} />
-          <Route path="/info" element={<Info />} />
+          <Route path="/info" element={<InfoRedirect />} />
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/login" element={<Login />} />
@@ -29,19 +30,7 @@ function App() {
     </Router>
   );
 }
-const Home = () => (
-  <div className="container" style={{ paddingTop: '100px' }}>
-    <h1>Bienvenido a La Esquina BAR</h1>
-    <p>Explora nuestra carta y realiza tus pedidos.</p>
-  </div>
-);
 
-/*const Carta = () => (
-  <div className="container" style={{ paddingTop: '100px' }}>
-    <h1>Nuestra Carta</h1>
-    <p>Aquí irán los productos</p>
-  </div>
-);*/
 
 const Pedidos = () => (
   <div className="container" style={{ paddingTop: '100px' }}>
@@ -50,12 +39,21 @@ const Pedidos = () => (
   </div>
 );
 
-const Info = () => (
-  <div className="container" style={{ paddingTop: '100px' }}>
-    <h1>Información</h1>
-    <p>Sobre nosotros</p>
-  </div>
-);
+const InfoRedirect = () => {
+  const navigate = useNavigate();
+  
+  React.useEffect(() => {
+    navigate('/');
+    setTimeout(() => {
+      const elemento = document.getElementById('ubicacion');
+      if (elemento) {
+        elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  }, [navigate]);
+
+  return null;
+};
 
 const Carrito = () => (
   <div className="container" style={{ paddingTop: '100px' }}>
