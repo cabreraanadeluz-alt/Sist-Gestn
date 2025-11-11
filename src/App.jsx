@@ -1,10 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { CartProvider } from './context/CartContext';
 import Navegador from './assets/Navegador/navegador';
 import Perfil from './assets/Perfil/perfil';
 import Menu from './assets/Carta/menu';
 import Login from './assets/Login/login';
 import Footer from './assets/Footer/footer';
+import Carrito from './assets/Carrito/carrito';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
@@ -12,9 +14,10 @@ import Inicio from './assets/inicio/Inicio';
 
 function App() {
   return (
+    <CartProvider>
     <Router>
       <div className="App">
-        <Navegador cartCount={3} />
+        <Navegador />
 
         <Routes>
           <Route path="/" element={<Inicio />} />
@@ -28,6 +31,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    </CartProvider>
   );
 }
 
@@ -54,14 +58,5 @@ const InfoRedirect = () => {
 
   return null;
 };
-
-const Carrito = () => (
-  <div className="container" style={{ paddingTop: '100px' }}>
-    <h1>Carrito de Compras</h1>
-    <p>Productos en el carrito</p>
-  </div>
-);
-
-
 
 export default App;

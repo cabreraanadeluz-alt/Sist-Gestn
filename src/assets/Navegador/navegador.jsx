@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../../context/CartContext';
 import Buscador from '../Buscador/buscador';
 import './navegador.css';
 
-const Navegador = ({ cartCount = 0 }) => {
+/*const Navegador = ({ cartCount = 0 }) => {
+  const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);*/
+const Navegador = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { getCartCount } = useCart();
+  const cartCount = getCartCount();
 
+  
   const handleSearch = (searchTerm) => {
     console.log('Búsqueda:', searchTerm);
 

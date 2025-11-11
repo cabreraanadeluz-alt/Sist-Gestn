@@ -4,11 +4,13 @@ import './login.css';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [direccion, setDireccion] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Email:', email);
     console.log('Password:', password);
+    console.log('Dirección:', direccion);
   };
 
   return (
@@ -36,6 +38,15 @@ function Login() {
               placeholder="Contraseña......"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+
+            <input
+              type="text"
+              className="login-input"
+              placeholder="Dirección..."
+              value={direccion}
+              onChange={(e) => setDireccion(e.target.value)}
               required
             />
 

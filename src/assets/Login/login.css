@@ -6,7 +6,7 @@
   justify-content: center;
   min-height: 100vh;
   font-family: 'Poppins', sans-serif;
-  background: url('"img/fondolg.jpg"') center/cover fixed;
+  background: url("img/fondolg.jpg") center/cover fixed;
   position: relative;
 }
 
