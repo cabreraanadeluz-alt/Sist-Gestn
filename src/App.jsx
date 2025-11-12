@@ -8,10 +8,11 @@ import Login from './assets/Login/login';
 import Footer from './assets/Footer/footer';
 import Carrito from './assets/Carrito/carrito';
 import MisPedidos from './assets/Mispedidos/mispedidos';
+import AdminPage from './assets/admin/AdminPage';
+import Inicio from './assets/inicio/Inicio';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
-import Inicio from './assets/inicio/Inicio';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/admin" element={<AdminPage />} />
         </Routes>
         <Footer />
       </div>

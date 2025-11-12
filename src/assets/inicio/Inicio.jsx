@@ -1,10 +1,12 @@
 import './inicio.css';
+import { Link } from 'react-router-dom';
+
 export default function Inicio() {
   const menuOptions = [
-    { id: 1, title: 'Pizzas', image: 'img/pizza.jpg', alt: 'Pizzas' },
-    { id: 2, title: 'Entre Panes', image: 'img/entrePanes.jpg', alt: 'Sandwiches' },
-    { id: 3, title: 'Al Plato', image: 'img/alPlato.jpg', alt: 'Platos' },
-    { id: 4, title: 'Bebidas', image: 'img/bebidas.jpg', alt: 'Bebidas' }
+    { id: 1, title: 'Pizzas', image: 'img/pizza.jpg', alt: 'Pizzas', red:'pizzas' },
+    { id: 2, title: 'Entre Panes', image: 'img/entrePanes.jpg', alt: 'Sandwiches', red:'panes' },
+    { id: 3, title: 'Al Plato', image: 'img/alPlato.jpg', alt: 'Platos', red:'plato'},
+    { id: 4, title: 'Bebidas', image: 'img/bebidas.jpg', alt: 'Bebidas', red:'bebidas' }
   ];
 
   return (
@@ -18,16 +20,18 @@ export default function Inicio() {
             {menuOptions.map((option) => (
               <div key={option.id} className="col">
                 <div className="card h-100 shadow-sm">
-                  <img 
-                    src={option.image} 
-                    className="card-img-top" 
+                  <img
+                    src={option.image}
+                    className="card-img-top"
                     alt={option.alt}
                     style={{ height: '300px', objectFit: 'cover' }}
                   />
                   <div className="card-body">
-                    <button className="btn btn-primary w-100">
-                      {option.title}
-                    </button>
+                    <Link to={`/carta#${option.red}`}>
+                      <button className="btn btn-primary w-100">
+                        {option.title}
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -54,7 +58,7 @@ export default function Inicio() {
               </div>
             </div>
           </div>
-          
+
           <h2 className="text-center mt-4">Horarios de atención</h2>
           <div className="row justify-content-center">
             <div className="col-auto text-center">
