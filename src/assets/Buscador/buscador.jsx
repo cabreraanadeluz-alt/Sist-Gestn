@@ -1,14 +1,34 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import menuData from './menuData.js';
 import './buscador.css';
 
-const Buscador = ({ onSearch }) => {
+const Buscador = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [resultados, setResultados] = useState([]);
+  const navigate = useNavigate();
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-    if (onSearch) {
-      onSearch(e.target.value);
+  const handleChange = (e) => {
+    const valor = e.target.value.toLowerCase();
+    setSearchTerm(valor);
+
+    if (valor.trim() === '') {
+      setResultados([]);
+      return;
     }
+
+    const filtrados = menuData.filter(item =>
+      item.nombre.toLowerCase().includes(valor) ||
+      item.descripcion.toLowerCase().includes(valor)
+    );
+
+    setResultados(filtrados);
+  };
+
+  const irAProducto = (categoria) => {
+    navigate(`/carta#${categoria}`);
+    setResultados([]);
+    setSearchTerm('');
   };
 
   return (
@@ -17,10 +37,23 @@ const Buscador = ({ onSearch }) => {
       <input
         type="text"
         className="form-control"
-        placeholder="Buscar productos..."
+        placeholder="Buscar en el menú..."
         value={searchTerm}
-        onChange={handleSearch}
+        onChange={handleChange}
       />
+      {resultados.length > 0 && (
+        <ul className="search-results">
+          {resultados.map(item => (
+            <li key={item.id} onClick={() => irAProducto(item.categoria)}>
+              <img src={item.imagen} alt={item.nombre} />
+              <div>
+                <strong>{item.nombre}</strong>
+                <p>{item.precio}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import Menu from './assets/Carta/menu';
 import Login from './assets/Login/login';
 import Footer from './assets/Footer/footer';
 import Carrito from './assets/Carrito/carrito';
+import MisPedidos from './assets/Mispedidos/mispedidos';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
@@ -22,7 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="/carta" element={<Menu />} />
-          <Route path="/pedidos" element={<Pedidos />} />
+          <Route path="/pedidos" element={<MisPedidos />} />
           <Route path="/info" element={<InfoRedirect />} />
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/perfil" element={<Perfil />} />
@@ -34,15 +35,6 @@ function App() {
     </CartProvider>
   );
 }
-
-
-const Pedidos = () => (
-  <div className="container" style={{ paddingTop: '100px' }}>
-    <h1>Mis Pedidos</h1>
-    <p>Historial de pedidos</p>
-  </div>
-);
-
 const InfoRedirect = () => {
   const navigate = useNavigate();
   
