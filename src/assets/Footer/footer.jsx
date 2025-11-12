@@ -1,8 +1,15 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import './footer.css';
 
 
 const Footer = () => {
+    const location = useLocation();
+  
+  if (location.pathname === '/admin') {
+    return null;
+  }
+
   return (
     <footer className="custom-footer py-4 mt-5">
       <div className="container">
