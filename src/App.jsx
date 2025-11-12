@@ -13,6 +13,7 @@ import Inicio from './assets/inicio/Inicio';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
+import Registro from './assets/Login/Registro';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/registro" element={<Registro/>} />
           <Route path="/admin" element={<AdminPage />} />
         </Routes>
         <Footer />

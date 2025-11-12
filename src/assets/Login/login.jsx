@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; 
 import './login.css';
 
 function Login() {
@@ -41,22 +42,17 @@ function Login() {
               required
             />
 
-            <input
-              type="text"
-              className="login-input"
-              placeholder="Dirección..."
-              value={direccion}
-              onChange={(e) => setDireccion(e.target.value)}
-              required
-            />
-
             <button type="submit" className="login-button">
               Iniciar Sesion
             </button>
           </form>
 
           <p className="login-footer">
-            NO TENES CUENTA? <a href="/registro" className="login-link">CREAR</a>
+            NO TENES CUENTA? 
+              <Link to="/registro" className="login-link">
+              CREAR
+            </Link>
+
           </p>
         </div>
       </div>
