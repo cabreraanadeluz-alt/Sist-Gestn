@@ -1,11 +1,18 @@
 import React from 'react';
 import { useCart } from '../../context/CartContext';
 
-function Carta({ nombre, descripcion, precio, imagen }) {
+function Carta({ id_producto, nombre, descripcion, precio, imagen }) {  // ← AGREGAR id_producto
   const { addToCart } = useCart();
 
   const handleAddToCart = () => {
-    addToCart({ nombre, descripcion, precio, imagen });
+    addToCart({
+      id_producto,  // ← AGREGAR ESTO
+      id: id_producto,  // ← Por compatibilidad
+      nombre,
+      descripcion,
+      precio,
+      imagen
+    });
   };
 
   return (
@@ -16,8 +23,8 @@ function Carta({ nombre, descripcion, precio, imagen }) {
         <p className="menu-description">{descripcion}</p>
         <p className="menu-price">{precio}</p>
       </div>
-      <button 
-        className="add-btn" 
+      <button
+        className="add-btn"
         onClick={handleAddToCart}
         title="Agregar al carrito"
       >
