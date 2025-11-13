@@ -80,7 +80,7 @@ function Menu() {
         />
         <Carta
           nombre="Empanadas"
-          descripcion="Carne, pollo, jamón y queso (docena)"
+          descripcion="Carne, pollo, jamón y queso"
           precio="$2.000ud."
           imagen="img/empanadas.jpg"
         />
