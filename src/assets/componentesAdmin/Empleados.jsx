@@ -27,8 +27,8 @@ export default function Empleados() {
     try {
       setLoading(true);
       const url = filtroPuesto === 'todos' 
-        ? 'http://localhost:8000/empleados/'
-        : `http://localhost:8000/empleados/puesto/${filtroPuesto}`;
+        ? 'http://localhost:8000/personal/'
+        : `http://localhost:8000/personal/puesto/${filtroPuesto}`;
       
       const response = await fetch(url);
       if (!response.ok) throw new Error('Error al cargar empleados');
