@@ -5,9 +5,14 @@ from decimal import Decimal
 
 # ==================== USUARIOS ====================
 class UsuarioCreate(BaseModel):
+    nombre: str
     rol: str = 'cliente'
     email: str
-    contraseña: str
+    password: str
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
 
 class UsuarioLogin(BaseModel):
     email: str
