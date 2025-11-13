@@ -8,7 +8,7 @@ import urllib
 load_dotenv()
 
 DB_HOST = os.getenv("DB_HOST", "localhost\\SQLEXPRESS")
-DB_NAME = os.getenv("DB_NAME", "laesquinabar")
+DB_NAME = os.getenv("DB_NAME", "SistemaDeGestion3.0")
 
 # Conexión con autenticación de Windows
 params = urllib.parse.quote_plus(

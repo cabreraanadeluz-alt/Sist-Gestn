@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [direccion, setDireccion] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Email:', email);
     console.log('Password:', password);
-    console.log('Dirección:', direccion);
   };
 
   return (
@@ -41,14 +40,6 @@ function Login() {
               required
             />
 
-            <input
-              type="text"
-              className="login-input"
-              placeholder="Dirección..."
-              value={direccion}
-              onChange={(e) => setDireccion(e.target.value)}
-              required
-            />
 
             <button type="submit" className="login-button">
               Iniciar Sesion
@@ -56,8 +47,11 @@ function Login() {
           </form>
 
           <p className="login-footer">
-            NO TENES CUENTA? <a href="/registro" className="login-link">CREAR</a>
-          </p>
+            NO TENES CUENTA? 
+              <Link to="/registro" className="login-link">
+              CREAR
+            </Link>
+            </p>
         </div>
       </div>
     </div>

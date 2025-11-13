@@ -29,3 +29,4 @@ backend/.env
 # --- Entorno virtual Python ---
 venv/
 */venv/
+*__pycache__
