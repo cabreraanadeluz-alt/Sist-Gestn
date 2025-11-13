@@ -1,0 +1,452 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css');
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Contenedor principal */
+.empleados-container {
+  background-color: #fffbe8;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Header */
+.empleados-container .d-flex.justify-content-between {
+  margin-bottom: 2rem;
+}
+
+.empleados-container h1 {
+  color: #000000;
+  font-weight: 700;
+  font-size: 2rem;
+  margin: 0;
+}
+
+/* Botones principales */
+.empleados-container .btn-primary {
+  background-color: #fc4d02;
+  border: none;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.empleados-container .btn-primary:hover {
+  background-color: #e04402;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(252, 77, 2, 0.3);
+}
+
+.empleados-container .btn-primary:disabled {
+  background-color: #fc913a;
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.empleados-container .btn-secondary {
+  background-color: #000000;
+  border: none;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.empleados-container .btn-secondary:hover {
+  background-color: #333333;
+}
+
+/* Alertas */
+.empleados-container .alert {
+  border-radius: 8px;
+  border: none;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.empleados-container .alert-danger {
+  background-color: #fc4d02;
+  color: #ffffff;
+}
+
+.empleados-container .alert .btn-close {
+  filter: brightness(0) invert(1);
+}
+
+/* Loading spinner */
+.empleados-container .spinner-border {
+  color: #fc4d02 !important;
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.3rem;
+}
+
+.empleados-container .text-center.py-5 p {
+  color: #000000;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+/* Filtros */
+.empleados-container .mb-3 {
+  background-color: #fc913a;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.empleados-container .mb-3 label {
+  font-weight: 600;
+  color: #000000;
+  margin: 0;
+}
+
+.empleados-container .form-select {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 2px solid #fc4d02;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.empleados-container .form-select:focus {
+  outline: none;
+  border-color: #fc4d02;
+  box-shadow: 0 0 0 3px rgba(252, 77, 2, 0.1);
+}
+
+.empleados-container .text-muted {
+  color: #000000 !important;
+  font-weight: 500;
+}
+
+/* Card contenedor de la tabla */
+.empleados-container .card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: none;
+  overflow: hidden;
+}
+
+.empleados-container .card-body {
+  padding: 0;
+}
+
+/* Tabla */
+.empleados-container .table-responsive {
+  overflow-x: auto;
+}
+
+.empleados-container .table {
+  margin-bottom: 0;
+  border-collapse: collapse;
+}
+
+.empleados-container .table thead {
+  background-color: #000000;
+}
+
+.empleados-container .table thead th {
+  color: #ffffff;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+}
+
+.empleados-container .table tbody td {
+  padding: 1rem;
+  color: #000000;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+
+.empleados-container .table tbody tr {
+  background-color: #ffffff;
+  transition: background-color 0.2s ease;
+}
+
+.empleados-container .table tbody tr:nth-child(even) {
+  background-color: #fffbe8;
+}
+
+.empleados-container .table tbody tr:hover {
+  background-color: #fc913a;
+}
+
+/* Badges de puesto */
+.empleados-container .badge {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.empleados-container .badge.bg-info {
+  background-color: #fc913a !important;
+  color: #000000;
+}
+
+/* Iconos en la tabla */
+.empleados-container .bi-person-fill,
+.empleados-container .bi-telephone,
+.empleados-container .bi-envelope {
+  color: #fc4d02;
+}
+
+/* Estado vacío */
+.empleados-container .text-center.py-4 {
+  padding: 3rem !important;
+}
+
+.empleados-container .bi-inbox {
+  color: #fc913a;
+  font-size: 3rem !important;
+}
+
+/* Botones de acción en tabla */
+.empleados-container .btn-sm {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  border: 2px solid;
+}
+
+.empleados-container .btn-outline-primary {
+  color: #fc4d02;
+  border-color: #fc4d02;
+  background-color: transparent;
+}
+
+.empleados-container .btn-outline-primary:hover {
+  background-color: #fc4d02;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+.empleados-container .btn-outline-danger {
+  color: #fc4d02;
+  border-color: #fc4d02;
+  background-color: transparent;
+}
+
+.empleados-container .btn-outline-danger:hover {
+  background-color: #fc4d02;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+/* Modal */
+.empleados-container .modal {
+  animation: fadeIn 0.2s ease;
+}
+
+.empleados-container .modal-dialog {
+  animation: slideIn 0.3s ease;
+}
+
+.empleados-container .modal-content {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.empleados-container .modal-header {
+  background-color: #fc4d02;
+  color: #ffffff;
+  padding: 1.5rem;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border: none;
+}
+
+.empleados-container .modal-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.empleados-container .modal-header .btn-close {
+  filter: brightness(0) invert(1);
+  opacity: 1;
+  font-size: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.empleados-container .modal-header .btn-close:hover {
+  transform: rotate(90deg);
+}
+
+.empleados-container .modal-body {
+  padding: 1.5rem;
+  background-color: #ffffff;
+}
+
+.empleados-container .modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #f0f0f0;
+  background-color: #ffffff;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* Form elements en modal */
+.empleados-container .form-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #000000;
+}
+
+.empleados-container .form-control,
+.empleados-container .modal-body .form-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #fc913a;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.empleados-container .form-control:focus,
+.empleados-container .modal-body .form-select:focus {
+  outline: none;
+  border-color: #fc4d02;
+  box-shadow: 0 0 0 3px rgba(252, 77, 2, 0.1);
+}
+
+.empleados-container .form-control::placeholder {
+  color: #999;
+  font-weight: 400;
+}
+
+.empleados-container small.text-muted {
+  color: #666 !important;
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .empleados-container {
+    padding: 1rem;
+  }
+
+  .empleados-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .empleados-container .d-flex.justify-content-between {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 1rem;
+  }
+
+  .empleados-container .mb-3 {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .empleados-container .form-select.d-inline-block {
+    width: 100% !important;
+  }
+
+  .empleados-container .table thead th,
+  .empleados-container .table tbody td {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .empleados-container .modal-dialog {
+    margin: 0.5rem;
+  }
+
+  .empleados-container .btn-sm {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Utilidades adicionales */
+.empleados-container .me-1 {
+  margin-right: 0.25rem !important;
+}
+
+.empleados-container .me-2 {
+  margin-right: 0.5rem !important;
+}
+
+.empleados-container .me-3 {
+  margin-right: 1rem !important;
+}
+
+.empleados-container .ms-3 {
+  margin-left: 1rem !important;
+}
+
+.empleados-container .mb-3 {
+  margin-bottom: 1rem !important;
+}
+
+.empleados-container .mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+.empleados-container .fw-semibold {
+  font-weight: 600 !important;
+}
+
+.empleados-container .d-block {
+  display: block !important;
+}
+
+.empleados-container .d-inline-block {
+  display: inline-block !important;
+}
+
+.empleados-container .w-auto {
+  width: auto !important;
+}

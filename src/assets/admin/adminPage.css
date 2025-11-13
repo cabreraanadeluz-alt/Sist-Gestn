@@ -1,0 +1,202 @@
+/* Contenedor principal */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* Sidebar */
+.admin-sidebar {
+  width: 250px;
+  background-color: #212529;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  transition: transform 0.3s ease;
+}
+
+/* Logo */
+.admin-logo {
+  margin-bottom: 30px;
+  font-size: 24px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.admin-logo i {
+  font-size: 28px;
+}
+
+/* Menú de navegación */
+.admin-menu {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-menu-item {
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: left;
+  background: transparent;
+  color: #ddd;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-menu-item i {
+  font-size: 18px;
+}
+
+.admin-menu-item:hover {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.admin-menu-item.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Información del usuario */
+.admin-user-info {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #495057;
+}
+
+.admin-user-card {
+  background-color: #343a40;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.admin-user-label {
+  font-size: 11px;
+  color: #adb5bd;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.admin-user-email {
+  font-size: 14px;
+  margin: 0 0 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+}
+
+.admin-user-email i {
+  font-size: 16px;
+}
+
+.admin-user-role {
+  font-size: 12px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #adb5bd;
+}
+
+.admin-user-role i {
+  font-size: 14px;
+}
+
+/* Botón de logout */
+.admin-logout-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #dc3545;
+  color: #fff;
+  width: 100%;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.admin-logout-btn:hover {
+  background-color: #bb2d3b;
+}
+
+.admin-logout-btn i {
+  font-size: 16px;
+}
+
+/* Contenido principal */
+.admin-content {
+  flex: 1;
+  margin-left: 250px;
+  padding: 30px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+    z-index: 1000;
+  }
+
+  .admin-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .admin-content {
+    margin-left: 0;
+  }
+
+  /* Botón para abrir sidebar en móvil */
+  .admin-mobile-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 999;
+    padding: 10px 15px;
+    background-color: #212529;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+
+  /* Overlay cuando el sidebar está abierto */
+  .admin-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+  }
+
+  .admin-overlay.show {
+    display: block;
+  }
+}

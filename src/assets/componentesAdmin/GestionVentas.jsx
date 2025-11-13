@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./GestionVentas.css";
 
 export default function GestionVentas() {
   const [pedidos, setPedidos] = useState([
@@ -86,7 +87,6 @@ export default function GestionVentas() {
 
   const guardarPedido = () => {
     if (pedidoEditando) {
-      // Editar existente
       setPedidos(
         pedidos.map((p) =>
           p.id === pedidoEditando.id
@@ -95,7 +95,6 @@ export default function GestionVentas() {
         )
       );
     } else {
-      // Crear nuevo
       const nuevoPedido = {
         id: Math.max(...pedidos.map((p) => p.id)) + 1,
         ...formData,
@@ -112,30 +111,19 @@ export default function GestionVentas() {
       ? pedidos
       : pedidos.filter((p) => p.estado === filtroEstado);
 
-  const getEstadoBadge = (estado) => {
-    const badges = {
-      pendiente: "bg-warning text-dark",
-      "en preparación": "bg-info",
-      entregado: "bg-success",
-      cancelado: "bg-danger",
-    };
-    return badges[estado] || "bg-secondary";
-  };
-
   return (
-    <div>
-      <div className="d-flex justify-content-between align-items-center mb-4">
+    <div className="gestion-ventas">
+      <div className="header">
         <h1>Gestión de Ventas</h1>
-        <button className="btn btn-primary" onClick={abrirModalNuevo}>
+        <button className="btn-primary" onClick={abrirModalNuevo}>
           + Nuevo Pedido
         </button>
       </div>
 
       {/* Filtros */}
-      <div className="mb-3">
-        <label className="me-2">Filtrar por estado:</label>
+      <div className="filtros">
+        <label>Filtrar por estado:</label>
         <select
-          className="form-select d-inline-block w-auto"
           value={filtroEstado}
           onChange={(e) => setFiltroEstado(e.target.value)}
         >
@@ -148,154 +136,138 @@ export default function GestionVentas() {
       </div>
 
       {/* Tabla de pedidos */}
-      <div className="card shadow">
-        <div className="card-body">
-          <div className="table-responsive">
-            <table className="table table-hover align-middle">
-              <thead className="table-dark">
-                <tr>
-                  <th>ID</th>
-                  <th>Cliente</th>
-                  <th>Productos</th>
-                  <th>Total</th>
-                  <th>Empleado</th>
-                  <th>Estado</th>
-                  <th>Fecha/Hora</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {pedidosFiltrados.map((pedido) => (
-                  <tr key={pedido.id}>
-                    <td>#{pedido.id}</td>
-                    <td>{pedido.cliente}</td>
-                    <td>{pedido.productos}</td>
-                    <td>${pedido.total.toLocaleString()}</td>
-                    <td>{pedido.empleado}</td>
-                    <td>
-                      <select
-                        className={`form-select form-select-sm ${getEstadoBadge(
-                          pedido.estado
-                        )}`}
-                        value={pedido.estado}
-                        onChange={(e) =>
-                          cambiarEstado(pedido.id, e.target.value)
-                        }
-                      >
-                        <option value="pendiente">Pendiente</option>
-                        <option value="en preparación">En preparación</option>
-                        <option value="entregado">Entregado</option>
-                        <option value="cancelado">Cancelado</option>
-                      </select>
-                    </td>
-                    <td>{pedido.fecha}</td>
-                    <td>
-                      <button
-                        className="btn btn-sm btn-outline-primary me-1"
-                        onClick={() => editarPedido(pedido)}
-                      >
-                        ✏️
-                      </button>
-                      <button
-                        className="btn btn-sm btn-outline-danger"
-                        onClick={() => eliminarPedido(pedido.id)}
-                      >
-                        🗑️
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      {/* Modal para crear/editar */}
-      {mostrarModal && (
-        <div
-          className="modal show d-block"
-          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
-        >
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">
-                  {pedidoEditando ? "Editar Pedido" : "Nuevo Pedido"}
-                </h5>
-                <button
-                  className="btn-close"
-                  onClick={() => setMostrarModal(false)}
-                ></button>
-              </div>
-              <div className="modal-body">
-                <div className="mb-3">
-                  <label className="form-label">Cliente</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="cliente"
-                    value={formData.cliente}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Productos</label>
-                  <textarea
-                    className="form-control"
-                    name="productos"
-                    value={formData.productos}
-                    onChange={handleInputChange}
-                  ></textarea>
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Total ($)</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    name="total"
-                    value={formData.total}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Empleado encargado</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="empleado"
-                    value={formData.empleado}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                {pedidoEditando && (
-                  <div className="mb-3">
-                    <label className="form-label">Estado</label>
+      <div className="tabla-container">
+        <div className="tabla-scroll">
+          <table className="tabla-pedidos">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Productos</th>
+                <th>Total</th>
+                <th>Empleado</th>
+                <th>Estado</th>
+                <th>Fecha/Hora</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pedidosFiltrados.map((pedido, index) => (
+                <tr key={pedido.id} className={index % 2 === 0 ? "fila-par" : ""}>
+                  <td>#{pedido.id}</td>
+                  <td>{pedido.cliente}</td>
+                  <td>{pedido.productos}</td>
+                  <td className="total">${pedido.total.toLocaleString()}</td>
+                  <td>{pedido.empleado}</td>
+                  <td>
                     <select
-                      className="form-select"
-                      name="estado"
-                      value={formData.estado}
-                      onChange={handleInputChange}
+                      className={`estado-select estado-${pedido.estado.replace(" ", "-")}`}
+                      value={pedido.estado}
+                      onChange={(e) => cambiarEstado(pedido.id, e.target.value)}
                     >
                       <option value="pendiente">Pendiente</option>
                       <option value="en preparación">En preparación</option>
                       <option value="entregado">Entregado</option>
                       <option value="cancelado">Cancelado</option>
                     </select>
-                  </div>
-                )}
+                  </td>
+                  <td className="fecha">{pedido.fecha}</td>
+                  <td>
+                    <button
+                      className="btn-editar"
+                      onClick={() => editarPedido(pedido)}
+                    >
+                      ✏️
+                    </button>
+                    <button
+                      className="btn-eliminar"
+                      onClick={() => eliminarPedido(pedido.id)}
+                    >
+                      🗑️
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Modal para crear/editar */}
+      {mostrarModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5>{pedidoEditando ? "Editar Pedido" : "Nuevo Pedido"}</h5>
+              <button
+                className="btn-cerrar"
+                onClick={() => setMostrarModal(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div className="modal-body">
+              <div className="form-group">
+                <label>Cliente</label>
+                <input
+                  type="text"
+                  name="cliente"
+                  value={formData.cliente}
+                  onChange={handleInputChange}
+                />
               </div>
-              <div className="modal-footer">
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => setMostrarModal(false)}
-                >
-                  Cancelar
-                </button>
-                <button className="btn btn-primary" onClick={guardarPedido}>
-                  Guardar
-                </button>
+              <div className="form-group">
+                <label>Productos</label>
+                <textarea
+                  name="productos"
+                  value={formData.productos}
+                  onChange={handleInputChange}
+                ></textarea>
               </div>
+              <div className="form-group">
+                <label>Total ($)</label>
+                <input
+                  type="number"
+                  name="total"
+                  value={formData.total}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group">
+                <label>Empleado encargado</label>
+                <input
+                  type="text"
+                  name="empleado"
+                  value={formData.empleado}
+                  onChange={handleInputChange}
+                />
+              </div>
+              {pedidoEditando && (
+                <div className="form-group">
+                  <label>Estado</label>
+                  <select
+                    name="estado"
+                    value={formData.estado}
+                    onChange={handleInputChange}
+                  >
+                    <option value="pendiente">Pendiente</option>
+                    <option value="en preparación">En preparación</option>
+                    <option value="entregado">Entregado</option>
+                    <option value="cancelado">Cancelado</option>
+                  </select>
+                </div>
+              )}
+            </div>
+            <div className="modal-footer">
+              <button
+                className="btn-secondary"
+                onClick={() => setMostrarModal(false)}
+              >
+                Cancelar
+              </button>
+              <button className="btn-primary" onClick={guardarPedido}>
+                Guardar
+              </button>
             </div>
           </div>
         </div>
