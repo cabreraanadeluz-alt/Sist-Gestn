@@ -54,7 +54,7 @@ h3 {
 
 /* Botones */
 .btn-primary {
-  background-color: var(--naranja-vivo);
+  background-color: var(--naranja-vivo) !important;
   border: none;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
@@ -63,6 +63,7 @@ h3 {
   color: var(--blanco);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  --bs-btn-border-color: var(--naranja-vivo) !important;
 }
 
 .btn-primary:hover {
@@ -70,6 +71,7 @@ h3 {
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(252, 77, 2, 0.3);
 }
+
 
 .btn-primary:active {
   background-color: #e04302;

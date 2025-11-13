@@ -177,13 +177,13 @@ export default function GestionVentas() {
                       className="btn-editar"
                       onClick={() => editarPedido(pedido)}
                     >
-                      ✏️
+                      <i class="bi bi-pencil-fill"></i>
                     </button>
                     <button
                       className="btn-eliminar"
                       onClick={() => eliminarPedido(pedido.id)}
                     >
-                      🗑️
+                      <i class="bi bi-trash3"></i>
                     </button>
                   </td>
                 </tr>
