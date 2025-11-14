@@ -1,15 +1,15 @@
-const API_URL = "http://localhost:8000/api"; // ahora apunta a /api
+const API_URL = "http://localhost:8000/api";
 
 // Obtener todos los productos
 export async function getProductos() {
-  const res = await fetch(`${API_URL}/productos`); // /api/productos
+  const res = await fetch(`${API_URL}/productos/`); // ← AGREGAR /
   if (!res.ok) throw new Error("Error al obtener productos");
   return res.json();
 }
 
 // Crear un pedido
 export async function crearPedido(userId, pedido) {
-  const res = await fetch(`${API_URL}/pedidos?user_id=${userId}`, { // /api/pedidos
+  const res = await fetch(`${API_URL}/pedidos/?user_id=${userId}`, { // ← AGREGAR /
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(pedido),
@@ -24,8 +24,8 @@ export async function crearPedido(userId, pedido) {
 }
 
 // Obtener pedidos del usuario
-export async function getPedidos() {
-  const res = await fetch(`${API_URL}/pedidos`); // /api/pedidos
+export async function getPedidos(userId) {
+  const res = await fetch(`${API_URL}/pedidos/usuario/${userId}`); // ← Corregir ruta
   if (!res.ok) throw new Error("Error al obtener pedidos");
   return res.json();
 }

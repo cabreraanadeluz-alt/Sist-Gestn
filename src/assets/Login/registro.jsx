@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './login.css'; // usa los mismos estilos del login
+import './login.css';
 
 function Registro() {
   const [nombre, setNombre] = useState('');
@@ -10,49 +10,77 @@ function Registro() {
   const [direccion, setDireccion] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  // Simulamos usuarios ya registrados
-  const usuariosRegistrados = ['usuario@ejemplo.com', 'test@gmail.com'];
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+    setLoading(true);
 
-  const validarEmail = (email) => /\S+@\S+\.\S+/.test(email);
-  const validarPassword = (password) =>
-    password.length >= 8 && /[a-zA-Z]/.test(password) && /\d/.test(password);
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError('');
-  setSuccess('');
-
-  try {
-    const response = await fetch("http://localhost:8000/api/usuarios/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email,
-        contraseña: password,
-        nombreCompleto: nombre,
-        telefono,
-      }),
-    });
-
-    if (!response.ok) {
-      const data = await response.json();
-      setError(data.detail || "Error al registrar");
+    // Validaciones básicas
+    if (password.length < 6) {
+      setError('La contraseña debe tener al menos 6 caracteres');
+      setLoading(false);
       return;
     }
 
-    setSuccess("Registro exitoso. Redirigiendo...");
+    try {
+      console.log('📤 Enviando registro:', {
+        email,
+        nombreCompleto: nombre,
+        telefono
+      });
 
-    setTimeout(() => navigate("/login"), 2000);
+      const response = await fetch("http://localhost:8000/api/auth/registro", {  // ← CAMBIO AQUÍ
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          contraseña: password,
+          nombreCompleto: nombre,
+          telefono,
+        }),
+      });
 
-  } catch (err) {
-    setError("No se pudo conectar con el servidor.");
-  }
-};
+      console.log('📥 Response status:', response.status);
 
+      if (!response.ok) {
+        const data = await response.json();
+        console.error('❌ Error del backend:', data);
+        
+        // Manejar diferentes tipos de errores
+        if (typeof data.detail === 'string') {
+          setError(data.detail);
+        } else if (Array.isArray(data.detail)) {
+          // Si es un array de errores de validación
+          const errores = data.detail.map(err => err.msg).join(', ');
+          setError(errores);
+        } else {
+          setError('Error al registrar usuario');
+        }
+        setLoading(false);
+        return;
+      }
 
+      const userData = await response.json();
+      console.log('✅ Usuario registrado:', userData);
+
+      setSuccess("✅ Registro exitoso. Redirigiendo al login...");
+
+      // Redirigir después de 2 segundos
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+
+    } catch (err) {
+      console.error('💥 Error:', err);
+      setError("No se pudo conectar con el servidor. Verifica que el backend esté corriendo.");
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="login-container">
@@ -61,7 +89,7 @@ const handleSubmit = async (e) => {
           <h1 className="login-title">CREAR CUENTA</h1>
           <p className="login-subtitle">Complete sus datos para registrarse.</p>
 
-          {error && <p className="error-message">{error}</p>}
+          {error && <p className="error-message">⚠️ {error}</p>}
           {success && <p className="success-message">{success}</p>}
 
           <form onSubmit={handleSubmit}>
@@ -72,6 +100,7 @@ const handleSubmit = async (e) => {
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
               required
+              disabled={loading}
             />
 
             <input
@@ -81,15 +110,18 @@ const handleSubmit = async (e) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={loading}
             />
 
             <input
               type="password"
               className="login-input"
-              placeholder="Contraseña..."
+              placeholder="Contraseña (mínimo 6 caracteres)..."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              minLength={6}
+              disabled={loading}
             />
 
             <input
@@ -99,24 +131,20 @@ const handleSubmit = async (e) => {
               value={telefono}
               onChange={(e) => setTelefono(e.target.value)}
               required
-            />
-            
-            <input
-              type="dir"
-              className="login-input"
-              placeholder="Dirección.."
-              value={direccion}
-              onChange={(e) => setDireccion(e.target.value)}
-              required
+              disabled={loading}
             />
 
-            <button type="submit" className="login-button">
-              Registrarse
+            <button 
+              type="submit" 
+              className="login-button"
+              disabled={loading}
+            >
+              {loading ? 'Registrando...' : 'Registrarse'}
             </button>
           </form>
 
           <p className="login-footer">
-            ¿Ya tenés cuenta?{' '}
+            ¿Ya tienes cuenta?{' '}
             <a href="/login" className="login-link">
               Iniciar sesión
             </a>

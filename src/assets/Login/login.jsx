@@ -6,19 +6,21 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/api/usuarios/login", {
+      const response = await fetch("http://localhost:8000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: email,
-          contraseña: password, // TU BACKEND LO PIDE ASÍ
+          contraseña: password,
         }),
       });
 
@@ -26,16 +28,33 @@ function Login() {
 
       if (!response.ok) {
         setError(data.detail || "Error al iniciar sesión");
+        setLoading(false);
         return;
       }
 
-      // Guardar usuario
-      localStorage.setItem("usuario", JSON.stringify(data.usuario));
+      console.log('✅ Login exitoso:', data);
 
-      // Redirigir a home
-      navigate("/");
+      // ✅ GUARDAR EN sessionStorage (NO localStorage)
+      sessionStorage.setItem('userId', data.user.id_usuarios);
+      sessionStorage.setItem('userEmail', data.user.email);
+      sessionStorage.setItem('userName', data.user.nombreCompleto);
+      sessionStorage.setItem('userRol', data.user.rol);
+      sessionStorage.setItem('isLoggedIn', 'true');
+
+      // Mensaje de bienvenida
+      alert(`¡Bienvenido ${data.user.nombreCompleto}!`);
+
+      // Redirigir según el rol
+      if (data.user.rol === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/');
+      }
+
     } catch (err) {
+      console.error('❌ Error:', err);
       setError("No se pudo conectar con el servidor.");
+      setLoading(false);
     }
   };
 
@@ -48,7 +67,7 @@ function Login() {
             INICIA SESIÓN CON TU CORREO ELECTRÓNICO Y CONTRASEÑA.
           </p>
 
-          {error && <p className="login-error">{error}</p>}
+          {error && <p className="login-error">⚠️ {error}</p>}
 
           <form onSubmit={handleSubmit}>
             <input
@@ -58,6 +77,7 @@ function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={loading}
             />
 
             <input
@@ -67,10 +87,11 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              disabled={loading}
             />
 
-            <button type="submit" className="login-button">
-              Iniciar Sesión
+            <button type="submit" className="login-button" disabled={loading}>
+              {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
             </button>
           </form>
 
