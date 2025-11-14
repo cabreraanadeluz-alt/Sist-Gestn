@@ -1,15 +1,42 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
+    setError("");
+
+    try {
+      const response = await fetch("http://localhost:8000/api/usuarios/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          contraseña: password, // TU BACKEND LO PIDE ASÍ
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.detail || "Error al iniciar sesión");
+        return;
+      }
+
+      // Guardar usuario
+      localStorage.setItem("usuario", JSON.stringify(data.usuario));
+
+      // Redirigir a home
+      navigate("/");
+    } catch (err) {
+      setError("No se pudo conectar con el servidor.");
+    }
   };
 
   return (
@@ -21,11 +48,13 @@ function Login() {
             INICIA SESIÓN CON TU CORREO ELECTRÓNICO Y CONTRASEÑA.
           </p>
 
+          {error && <p className="login-error">{error}</p>}
+
           <form onSubmit={handleSubmit}>
             <input
               type="email"
               className="login-input"
-              placeholder="Correo electronico......"
+              placeholder="Correo electrónico..."
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -34,24 +63,23 @@ function Login() {
             <input
               type="password"
               className="login-input"
-              placeholder="Contraseña......"
+              placeholder="Contraseña..."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
 
-
             <button type="submit" className="login-button">
-              Iniciar Sesion
+              Iniciar Sesión
             </button>
           </form>
 
           <p className="login-footer">
-            NO TENES CUENTA? 
-              <Link to="/registro" className="login-link">
+            ¿NO TENÉS CUENTA?
+            <Link to="/registro" className="login-link">
               CREAR
             </Link>
-            </p>
+          </p>
         </div>
       </div>
     </div>

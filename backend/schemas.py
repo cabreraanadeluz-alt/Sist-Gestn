@@ -13,6 +13,17 @@ class UsuarioResponse(BaseModel):
     
     class Config:
         from_attributes = True
+        
+class UsuarioCreate(BaseModel):
+    email: str
+    contraseña: str
+    nombreCompleto: str
+    telefono: str
+    direccion: str
+
+class UsuarioLogin(BaseModel):
+    email: str
+    contraseña: str
 
 # PRODUCTOS
 class ProductoResponse(BaseModel):

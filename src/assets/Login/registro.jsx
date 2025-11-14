@@ -20,44 +20,39 @@ function Registro() {
   const validarPassword = (password) =>
     password.length >= 8 && /[a-zA-Z]/.test(password) && /\d/.test(password);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setError('');
-    setSuccess('');
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError('');
+  setSuccess('');
 
-    // Validaciones
-    if (!nombre || !email || !password || !telefono) {
-      setError('Por favor, complete todos los campos.');
+  try {
+    const response = await fetch("http://localhost:8000/api/usuarios/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email,
+        contraseña: password,
+        nombreCompleto: nombre,
+        telefono,
+      }),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      setError(data.detail || "Error al registrar");
       return;
     }
 
-    if (!validarEmail(email)) {
-      setError('Ingrese un correo electrónico válido (ejemplo@dominio.com).');
-      return;
-    }
+    setSuccess("Registro exitoso. Redirigiendo...");
 
-    if (!validarPassword(password)) {
-      setError('La contraseña debe tener al menos 8 caracteres e incluir letras y números.');
-      return;
-    }
+    setTimeout(() => navigate("/login"), 2000);
 
-    if (usuariosRegistrados.includes(email)) {
-      setError('Este correo ya está en uso.');
-      return;
-    }
+  } catch (err) {
+    setError("No se pudo conectar con el servidor.");
+  }
+};
 
-    // Si pasa todas las validaciones
-    console.log('Usuario registrado:', { nombre, email, telefono });
-    setSuccess('Registro exitoso. Bienvenido.');
 
-    // Simulamos guardar el usuario (ej: localStorage)
-    localStorage.setItem('usuario', JSON.stringify({ nombre, email, telefono }));
-
-    // Redirige luego de 2 segundos
-    setTimeout(() => {
-      navigate('/login');
-    }, 2000);
-  };
 
   return (
     <div className="login-container">
