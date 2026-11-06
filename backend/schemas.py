@@ -10,9 +10,22 @@ class UsuarioResponse(BaseModel):
     email: str
     nombreCompleto: Optional[str]
     telefono: Optional[str]
+    direccion: Optional[str]
+
     
     class Config:
         from_attributes = True
+
+class UsuarioCreate(BaseModel):
+    email: str
+    contraseña: str
+    nombreCompleto: str
+    telefono: str
+    direccion: str
+
+class UsuarioLogin(BaseModel):
+    email: str
+    contraseña: str
 
 # PRODUCTOS
 class ProductoResponse(BaseModel):
@@ -50,6 +63,7 @@ class PedidoCreate(BaseModel):
     notas: Optional[str] = None
     detalles: List[DetallePedidoCreate]
 
+    
 class PedidoResponse(BaseModel):
     id_pedido: int
     id_usuario: int

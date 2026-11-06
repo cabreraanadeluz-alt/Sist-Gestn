@@ -4,7 +4,8 @@ import './footer.css';
 
 const Footer = () => {
   return (
-    <footer className="custom-footer py-4 mt-5">
+    <footer className="custom-footer py-4">
+
       <div className="container">
         <div className="row text-center text-md-start align-items-center">
            

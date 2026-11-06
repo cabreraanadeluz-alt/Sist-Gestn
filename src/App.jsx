@@ -7,7 +7,7 @@ import Menu from './assets/Carta/menu';
 import Login from './assets/Login/login';
 import Footer from './assets/Footer/footer';
 import Carrito from './assets/Carrito/carrito';
-import MisPedidos from './assets/Mispedidos/mispedidos';
+import MisPedidos from './assets/Mispedidos/Mispedidos';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
@@ -37,6 +37,7 @@ function App() {
     </CartProvider>
   );
 }
+
 const InfoRedirect = () => {
   const navigate = useNavigate();
   

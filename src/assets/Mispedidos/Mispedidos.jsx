@@ -13,48 +13,48 @@ const MisPedidos = () => {
   }, []);
 
   const cargarPedidos = async () => {
-    try {
-      // Verificar que el usuario esté logueado
-      const userId = sessionStorage.getItem('userId');
-      
-      if (!userId) {
-        alert('⚠️ Debes iniciar sesión para ver tus pedidos');
-        navigate('/login');
-        return;
-      }
+  try {
+    const usuarioStr = sessionStorage.getItem('usuario');
 
-      console.log('📦 Cargando pedidos del usuario:', userId);
-
-      // Llamar a la API
-      const response = await fetch(`http://localhost:8000/api/pedidos/usuario/${userId}`);
-      
-      if (!response.ok) {
-        throw new Error('Error al cargar pedidos');
-      }
-
-      const data = await response.json();
-      console.log('✅ Pedidos recibidos:', data);
-
-      // Adaptar los datos al formato del componente
-      const pedidosAdaptados = data.map(pedido => ({
-        id: pedido.id_pedido,
-        estado: pedido.estado,
-        productos: pedido.detalles?.map(d => 
-          `${d.producto?.nombre || 'Producto'} x${d.cantidad}`
-        ) || ['Sin productos'],
-        fecha: formatearFecha(new Date(pedido.fecha)),
-        total: parseFloat(pedido.total)
-      }));
-
-      setPedidos(pedidosAdaptados);
-      setCargando(false);
-
-    } catch (err) {
-      console.error('❌ Error al cargar pedidos:', err);
-      setError(err.message);
-      setCargando(false);
+    if (!usuarioStr) {
+      alert('⚠️ Debes iniciar sesión para ver tus pedidos');
+      navigate('/login');
+      return;
     }
-  };
+
+    const usuario = JSON.parse(usuarioStr);
+    const userId = usuario.id;
+
+    console.log('📦 Cargando pedidos del usuario:', userId);
+
+    const response = await fetch(`http://localhost:8000/api/pedidos/usuario/${userId}`);
+
+    if (!response.ok) {
+      throw new Error('Error al cargar pedidos');
+    }
+
+    const data = await response.json();
+
+    const pedidosAdaptados = data.map(pedido => ({
+      id: pedido.id_pedido,
+      estado: pedido.estado,
+      productos: pedido.detalles?.map(d =>
+        `${d.producto?.nombre || 'Producto'} x${d.cantidad}`
+      ) || ['Sin productos'],
+      fecha: formatearFecha(new Date(pedido.fecha)),
+      total: parseFloat(pedido.total)
+    }));
+
+    setPedidos(pedidosAdaptados);
+    setCargando(false);
+
+  } catch (err) {
+    console.error('❌ Error al cargar pedidos:', err);
+    setError(err.message);
+    setCargando(false);
+  }
+};
+
 
   const formatearFecha = (fecha) => {
     const dia = String(fecha.getDate()).padStart(2, '0');
