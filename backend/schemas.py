@@ -5,12 +5,12 @@ from decimal import Decimal
 
 # USUARIOS
 class UsuarioResponse(BaseModel):
-    id_usuarios: int
+    id: int
     rol: str
     email: str
-    nombreCompleto: Optional[str]
-    telefono: Optional[str]
-    direccion: Optional[str]
+    nombreCompleto: Optional[str] = None
+    telefono: Optional[str] = None
+    direccion: Optional[str] = None
 
     
     class Config:
@@ -35,6 +35,7 @@ class ProductoResponse(BaseModel):
     descripcion: Optional[str]
     id_categoria: int
     imagen: Optional[str]
+    subcategoria: Optional[str] = None
     disponible: int
     
     class Config:

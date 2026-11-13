@@ -1,36 +1,78 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
 
 .login-container {
+  min-height: 100vh;
+    background: #461220;
+  font-family: 'Montserrat', sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  font-family: 'Poppins', sans-serif;
-  background: url("img/fondolg.jpg") center/cover fixed;
-  position: relative;
-  padding: 20px 0;
+  padding: 100px 20px 50px;
+  box-sizing: border-box;
 }
 
-.login-container::before {
+.login-card {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* ---------- Panel de la foto ---------- */
+.login-foto {
+  position: relative;
+  flex: 0 0 400px;
+  height: 480px;
+  border-radius: 8px;
+  background:
+    linear-gradient(to top, rgba(43, 42, 46, 0.92) 5%, rgba(43, 42, 46, 0.25) 65%),
+    url('/img/hero.jpg') center / cover no-repeat;
+  box-shadow: 0 18px 40px rgba(43, 42, 46, 0.35);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 32px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+}
+
+.login-foto h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 10px;
+  color: #FFFFFF;
+}
+
+.login-foto p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0;
+  color: #FFFFFF;
+  opacity: 0.9;
+}
+
+.login-foto::before {
   content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1;
+  width: 50px;
+  height: 3px;
+  background: #C7A17A;
+  margin-bottom: 16px;
+  border-radius: 2px;
 }
 
+/* ---------- Tarjeta del formulario ---------- */
 .login-form-container {
-  background-color: rgba(255, 255, 255, 0.95);
-  padding: 30px 35px;
-  border-radius: 15px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  z-index: 2;
+  flex: 1;
+  background: #FFFFFF;
+  margin-left: -60px;
+  padding: 44px 44px 36px;
+  border-radius: 8px;
+  box-shadow: 0 14px 36px rgba(43, 42, 46, 0.22);
   position: relative;
-  max-width: 500px; /* AUMENTADO */
-  width: 90%;
+  z-index: 2;
+  box-sizing: border-box;
 }
 
 .login-form {
@@ -38,149 +80,129 @@
 }
 
 .login-title {
-  color: #fc4d02;
-  font-size: 1.8rem; /* AUMENTADO */
+  font-family: 'Playfair Display', serif;
+  color: #2B2A2E;
+  font-size: 1.6rem;
   font-weight: 700;
-  text-align: center;
-  margin-bottom: 8px;
+  margin: 0 0 6px;
   letter-spacing: 1px;
-}
-
-.login-subtitle {
-  color: #666666;
-  font-size: 0.8rem;
-  text-align: center;
-  margin-bottom: 25px;
-  font-weight: 400;
-  letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 
+.login-subtitle {
+  color: #8a8a8a;
+  font-size: 0.78rem;
+  margin: 0 0 26px;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- Campos (solo línea abajo) ---------- */
 .login-input {
   width: 100%;
-  padding: 14px 20px; /* AUMENTADO */
-  margin-bottom: 15px;
+  padding: 12px 2px;
+  margin-bottom: 18px;
   border: none;
-  background-color: #e0e0e0;
-  border-radius: 5px;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.9rem; /* AUMENTADO */
-  color: #666666;
-  transition: background-color 0.3s ease;
+  border-bottom: 1px solid #d9d9d9;
+  background: transparent;
+  border-radius: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #2B2A2E;
+  transition: border-color 0.25s ease;
   box-sizing: border-box;
 }
 
 .login-input::placeholder {
-  color: #999999;
-  font-style: italic;
+  color: #a5a5a5;
+  font-style: normal;
+  font-weight: 400;
 }
 
 .login-input:focus {
   outline: none;
-  background-color: #d5d5d5;
+  border-bottom: 2px solid #C7A17A;
 }
 
+/* ---------- Botón ---------- */
 .login-button {
   width: 100%;
-  padding: 15px; /* AUMENTADO */
-  background-color: #fc4d02;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1rem; /* AUMENTADO */
-  font-weight: 600;
+  padding: 14px;
+  margin-top: 10px;
+  background: #461220;
+  color: #FFFFFF;
+  border: 1px solid #C7A17A;
+  border-radius: 4px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 8px;
-  text-transform: capitalize;
+  box-shadow: 0 8px 18px rgba(70, 18, 32, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .login-button:hover {
-  background-color: #e04302;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(70, 18, 32, 0.45);
 }
 
 .login-button:active {
   transform: scale(0.98);
 }
 
+/* ---------- Pie y links ---------- */
 .login-footer {
   text-align: center;
-  margin-top: 18px;
-  font-size: 0.85rem;
-  color: #666666;
-  letter-spacing: 1px;
+  margin: 22px 0 0;
+  font-size: 0.82rem;
+  color: #777777;
 }
 
 .login-link {
-  color: #fc4d02;
+  color: #BD8347;
   text-decoration: none;
-  font-weight: 600;
-  margin-left: 5px;
+  font-weight: 700;
+  margin-left: 6px;
+  letter-spacing: 0.5px;
 }
 
 .login-link:hover {
   text-decoration: underline;
 }
 
+/* ---------- Mensajes ---------- */
+.login-error,
 .error-message {
-  background-color: #ffe6e6;
-  color: #d32f2f;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  font-size: 0.85rem;
-  text-align: center;
-  border-left: 4px solid #d32f2f;
+  background: #fdecee;
+  color: #8a1c2b;
+  padding: 10px 12px;
+  border-radius: 4px;
+  margin: 0 0 16px;
+  font-size: 0.82rem;
+  border-left: 4px solid #461220;
 }
 
 .success-message {
-  background-color: #e6f7e6;
-  color: #2e7d32;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  font-size: 0.85rem;
-  text-align: center;
+  background: #eef6ee;
+  color: #2e6b32;
+  padding: 10px 12px;
+  border-radius: 4px;
+  margin: 0 0 16px;
+  font-size: 0.82rem;
   border-left: 4px solid #2e7d32;
 }
 
-@media (max-width: 768px) {
+/* ---------- Tablet y celular ---------- */
+@media (max-width: 820px) {
+  .login-foto {
+    display: none;
+  }
   .login-form-container {
-    padding: 25px 25px;
-    max-width: 420px; /* ajustado al aumento general */
-  }
-
-  .login-title {
-    font-size: 1.6rem;
-  }
-  
-  .login-input {
-    padding: 12px 18px;
-    margin-bottom: 12px;
-  }
-}
-
-@media (max-height: 700px) {
-  .login-form-container {
-    padding: 20px 30px;
-  }
-  
-  .login-title {
-    font-size: 1.5rem;
-    margin-bottom: 5px;
-  }
-  
-  .login-subtitle {
-    margin-bottom: 18px;
-  }
-  
-  .login-input {
-    padding: 12px 16px;
-    margin-bottom: 12px;
-  }
-  
-  .login-button {
-    padding: 13px;
+    margin-left: 0;
+    max-width: 460px;
+    margin: 0 auto;
+    padding: 36px 28px 30px;
   }
 }

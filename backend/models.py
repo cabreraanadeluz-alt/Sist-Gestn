@@ -46,6 +46,7 @@ class Producto(Base):
     descripcion = Column(String(255))
     id_categoria = Column(Integer, ForeignKey("categoria.id_categoria"))
     imagen = Column(String(255))
+    subcategoria = Column(String(50), nullable=True)
     disponible = Column(Integer, default=1)
     
     categoria = relationship("Categoria", back_populates="productos")

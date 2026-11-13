@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
-
+import { parsearPrecio } from '../utils/precio';
 const CartContext = createContext();
 
 export const useCart = () => {
@@ -54,10 +54,10 @@ export const CartProvider = ({ children }) => {
   };
 
   const getCartTotal = () => {
-    return cartItems.reduce((total, item) => {
-      const precio = parseFloat(item.precio.replace(/[$\.]/g, '').replace(',', '.'));
-      return total + (precio * item.cantidad);
-    }, 0);
+    return cartItems.reduce(
+      (total, item) => total + parsearPrecio(item.precio) * item.cantidad,
+      0
+    );
   };
 
   return (

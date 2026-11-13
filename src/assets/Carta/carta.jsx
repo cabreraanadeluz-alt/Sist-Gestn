@@ -1,13 +1,14 @@
 import React from 'react';
 import { useCart } from '../../context/CartContext';
+import { parsearPrecio, formatearPrecio } from '../../utils/precio';
 
-function Carta({ id_producto, nombre, descripcion, precio, imagen }) {  // ← AGREGAR id_producto
+function Carta({ id_producto, nombre, descripcion, precio, imagen, tipo = 'comida' }) {
   const { addToCart } = useCart();
 
   const handleAddToCart = () => {
     addToCart({
-      id_producto,  // ← AGREGAR ESTO
-      id: id_producto,  // ← Por compatibilidad
+      id_producto,
+      id: id_producto,
       nombre,
       descripcion,
       precio,
@@ -16,12 +17,12 @@ function Carta({ id_producto, nombre, descripcion, precio, imagen }) {  // ← A
   };
 
   return (
-    <div className="menu-card">
+    <div className={`menu-card menu-card--${tipo}`}>
       <img src={imagen} alt={nombre} className="menu-image" />
       <div className="menu-info">
         <h3 className="menu-name">{nombre}</h3>
         <p className="menu-description">{descripcion}</p>
-        <p className="menu-price">{precio}</p>
+        <p className="menu-price">{formatearPrecio(parsearPrecio(precio))}</p>
       </div>
       <button
         className="add-btn"

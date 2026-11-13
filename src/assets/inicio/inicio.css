@@ -1,84 +1,141 @@
-/* Importar fuente Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
 
-/* Variables de la paleta de colores */
-:root {
-  --naranja-vivo: #fc4d02;
-  --crema-claro: #fffbe8;
-  --naranja-suave: #fc913a;
-  --negro: #000000;
-  --blanco: #ffffff;
+.inicio {
+  --crema: #F8F3E6;
+  --negro: #2B2A2E;
+  --burdeos: #461220;
+  --bronce: #C7A17A;
+  --sombra: 0 6px 18px rgba(43, 42, 46, 0.18);
+  --sombra-hover: 0 12px 28px rgba(43, 42, 46, 0.28);
+
+  background: var(--crema);
+  color: var(--negro);
+  font-family: 'Montserrat', sans-serif;
 }
 
-/* Tipografía general */
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--crema-claro);
+/* Banner */
+.hero {
+  min-height: 460px;
+  background:
+    linear-gradient(rgba(43, 42, 46, 0.35), rgba(43, 42, 46, 0.6)),
+    url('/img/hero.jpg') center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-btn {
+  background: var(--burdeos);
+  color: #fff;
+  border: 1px solid var(--bronce);
+  border-radius: 40px;
+  padding: 16px 44px;
+  font: 600 1.05rem 'Montserrat', sans-serif;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  box-shadow: var(--sombra);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.hero-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-hover);
 }
 
-h2, h3, p {
-  font-family: 'Poppins', sans-serif;
+/* Contenido */
+.inicio-contenido {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 64px 24px;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 56px;
+  align-items: start;
 }
-
-h2 {
+.inicio-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
   font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
   color: var(--negro);
+  margin-bottom: 28px;
 }
 
-h3 {
-  font-weight: 500;
+/* Opciones */
+.opciones-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.opcion-card {
+  background: var(--bronce);
+  border: 0;
+  border-radius: 26px;
+  padding: 10px 10px 14px;
+  box-shadow: var(--sombra);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.opcion-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-hover);
+}
+.opcion-card img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 18px;
+}
+.opcion-card span {
+  font: 700 0.95rem 'Montserrat', sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   color: var(--negro);
+  text-align: center;
 }
 
-/* Colores y estilos de cards */
-.card {
-  background-color: var(--naranja-suave);
-  border: none;
+/* Ubicación */
+.inicio-ubicacion {
+  text-align: center;
+  scroll-margin-top: 90px;
+}
+.mapa-wrap {
+  aspect-ratio: 4 / 3;
   border-radius: 12px;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--sombra);
+  background: #fff;
 }
-
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 24px rgba(252, 77, 2, 0.2) !important;
+.mapa-wrap iframe {
+  width: 100%;
+  height: 100%;
 }
-
-.card-img-top {
-  border-bottom: 4px solid var(--naranja-vivo);
-}
-
-.card-body {
-  background-color: var(--naranja-suave);
-}
-
-/* Botones */
-.btn-primary {
-  background-color: var(--naranja-vivo);
-  border: none;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  color: var(--blanco);
+.inicio-horario-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  color: var(--burdeos);
+  margin: 28px 0 8px;
+}
+.inicio-horario {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
 }
 
-.btn-primary:hover {
-  background-color: #e04302;
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(252, 77, 2, 0.3);
+/* Responsive */
+@media (max-width: 900px) {
+  .inicio-contenido {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
 }
-
-.btn-primary:active {
-  background-color: #e04302;
-  transform: scale(0.98);
-}
-
-
-/* Mapa */
-.ratio iframe {
-  border: 3px solid var(--naranja-vivo);
-  border-radius: 8px;
+@media (max-width: 520px) {
+  .opciones-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero { min-height: 320px; }
 }

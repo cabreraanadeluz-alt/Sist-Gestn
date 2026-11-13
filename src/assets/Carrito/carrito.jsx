@@ -3,6 +3,7 @@ import { useCart } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import './carrito.css';
 import { crearPedido } from "../../api/api.js";
+import { parsearPrecio, formatearPrecio } from '../../utils/precio';
 
 const Carrito = () => {
   const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } = useCart();
@@ -27,14 +28,14 @@ const Carrito = () => {
           : parseFloat(item.precio);
 
         return {
-          id_producto: item.id_producto || item.id, // ← CORREGIDO
+          id_producto: item.id_producto || item.id,
           cantidad: item.cantidad,
           subtotal: precioLimpio * item.cantidad
         };
       });
 
       const pedido = {
-        id_cliente: parseInt(userId), // Asumiendo que id_cliente = id_usuario
+        id_cliente: parseInt(userId),
         total: getCartTotal(),
         metodo_pago: "Efectivo",
         notas: "Pedido desde React",
@@ -48,13 +49,8 @@ const Carrito = () => {
 
       console.log("✅ Respuesta del backend:", respuesta);
 
-      // Limpiar carrito
       clearCart();
-
-      // Mostrar mensaje de éxito
       alert("✅ Pedido realizado con éxito!");
-
-      // Redirigir a Mis Pedidos
       navigate('/pedidos');
 
     } catch (error) {
@@ -87,7 +83,7 @@ const Carrito = () => {
             <div className="carrito-item-info">
               <h3>{item.nombre}</h3>
               <p className="carrito-item-desc">{item.descripcion}</p>
-              <p className="carrito-item-precio">{item.precio}</p>
+              <p className="carrito-item-precio">{formatearPrecio(parsearPrecio(item.precio))}</p> {/* ← CAMBIO */}
             </div>
 
             <div className="carrito-item-controls">
@@ -109,7 +105,7 @@ const Carrito = () => {
             </div>
 
             <div className="carrito-item-subtotal">
-              ${(parseFloat(item.precio.toString().replace(/[^0-9.,]/g, '').replace(',', '.')) * item.cantidad).toLocaleString('es-AR')}
+              {formatearPrecio(parsearPrecio(item.precio) * item.cantidad)} {/* ← CAMBIO */}
             </div>
           </div>
         ))}
@@ -118,7 +114,7 @@ const Carrito = () => {
       <div className="carrito-footer">
         <div className="carrito-total">
           <h3>Total:</h3>
-          <h2>${getCartTotal().toLocaleString('es-AR')}</h2>
+          <h2>{formatearPrecio(getCartTotal())}</h2> {/* ← CAMBIO */}
         </div>
 
         <div className="carrito-actions">

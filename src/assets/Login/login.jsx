@@ -30,8 +30,7 @@ function Login() {
       }
 
       // Guardar usuario
-    sessionStorage.setItem("usuario", JSON.stringify(data.usuario));
-
+      sessionStorage.setItem("usuario", JSON.stringify(data.usuario));
 
       // Redirigir a home
       navigate("/");
@@ -42,45 +41,52 @@ function Login() {
 
   return (
     <div className="login-container">
-      <div className="login-form-container">
-        <div className="login-form">
-          <h1 className="login-title">BIENVENIDO A LA ESQUINA BAR</h1>
-          <p className="login-subtitle">
-            INICIA SESIÓN CON TU CORREO ELECTRÓNICO Y CONTRASEÑA.
-          </p>
+      <div className="login-card">
+        <div className="login-foto">
+          <h2>Bienvenido a La Esquina</h2>
+          <p>Iniciá sesión y pedí tus platos favoritos para retirar en el local o recibir en tu casa.</p>
+        </div>
 
-          {error && <p className="login-error">{error}</p>}
+        <div className="login-form-container">
+          <div className="login-form">
+            <h1 className="login-title">Iniciar sesión</h1>
+            <p className="login-subtitle">
+              Ingresá con tu correo electrónico y contraseña.
+            </p>
 
-          <form onSubmit={handleSubmit}>
-            <input
-              type="email"
-              className="login-input"
-              placeholder="Correo electrónico..."
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+            {error && <p className="login-error">{error}</p>}
 
-            <input
-              type="password"
-              className="login-input"
-              placeholder="Contraseña..."
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <form onSubmit={handleSubmit}>
+              <input
+                type="email"
+                className="login-input"
+                placeholder="Correo electrónico"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
 
-            <button type="submit" className="login-button">
-              Iniciar Sesión
-            </button>
-          </form>
+              <input
+                type="password"
+                className="login-input"
+                placeholder="Contraseña"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
 
-          <p className="login-footer">
-            ¿NO TENÉS CUENTA?
-            <Link to="/registro" className="login-link">
-              CREAR
-            </Link>
-          </p>
+              <button type="submit" className="login-button">
+                Iniciar sesión
+              </button>
+            </form>
+
+            <p className="login-footer">
+              ¿No tenés cuenta?
+              <Link to="/registro" className="login-link">
+                Crear
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>
